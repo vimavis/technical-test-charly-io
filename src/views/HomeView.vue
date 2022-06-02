@@ -5,7 +5,7 @@
       <TableFilter :options="options" :onChangeMethod="filterOnChange"/>
     </div>
     <Table :data="companies(filter)" />
-    <span>Total: {{ companies(filter).length }} companies of {{ companies('all').length }}</span>
+    <span><strong>Total:</strong> <em>{{ companies(filter).length }}</em> companies of <em>{{ companies('all').length }}</em></span>
   </div>
 </template>
 
