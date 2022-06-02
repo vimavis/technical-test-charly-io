@@ -15,10 +15,16 @@ export default new Vuex.Store({
       { id: 9, status: "pending", name: "002", date: "11/04/2022" },
       { id: 5, status: "declined", name: "002", date: "02/02/2022" },
       { id: 6, status: "declined", name: "001", date: "02/02/2022" },
-    ]
+    ],
   },
   getters: {
-    getCompanies: state => state.companies
+    getCompanies: state => filtro => {
+      if (filtro === 'all') {
+        return state.companies
+      } else {
+        return state.companies.filter(company => company.status === filtro)
+      }
+    }
   },
   mutations: {
   },
