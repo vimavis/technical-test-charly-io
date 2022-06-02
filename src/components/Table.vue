@@ -3,11 +3,15 @@
     <table>
       <thead>
         <tr>
-          <th v-for="column in columns">{{ column }}</th>
+          <th
+            class="column" 
+            v-for="column in columns"
+            @click="sortBy(column)"
+          >{{ column }}</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="row in data">
+        <tr v-for="row in dataView">
           <td v-for="column in columns">{{ row[column] }}</td>
         </tr>
       </tbody>
@@ -21,6 +25,23 @@ export default {
   props: {
     data: Array
   },
+  data() {
+    return {
+      sort: ''
+    }
+  },
+  methods: {
+    sortBy(column) {
+      if (this.sort === column) {
+        this.sort = '-' + column
+      } else if (this.sort === '-' + column) {
+        this.sort = ''
+      } else {
+        this.sort = column
+      }
+      console.log(this.sort)
+    }
+  },
   computed: {
     columns() {
       if (this.data.length > 0) {
@@ -28,11 +49,39 @@ export default {
       } else {
         return []
       }
+    },
+    dataView() {
+      if (this.sort) {
+        let dataReturn = []
+        if (this.sort.includes('date')) {
+          dataReturn = [...this.data].sort((a, b) => {
+            return (new Date(a['date']) - new Date(b['date']))
+          })
+        } else if(this.sort.includes('name')) {
+          dataReturn = [...this.data].sort((a, b) => {
+            return a['name'].localeCompare(b['name'])
+          })
+        } else {
+          const order = this.sort.includes('-') ? this.sort.slice(1) : this.sort 
+          dataReturn = [...this.data].sort((a, b) => {
+            return (a[order] - b[order])
+          })
+        }
+        if (this.sort.startsWith('-')) {
+          return dataReturn.reverse()
+        } else {
+          return dataReturn
+        }
+      } else {
+        return this.data
+      }
     }
   }
 }
 </script>
 
 <style scoped>
-
+.column {
+  cursor: pointer;
+}
 </style>
