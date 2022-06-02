@@ -1,11 +1,12 @@
 <template>
-  <div class="table">
-    <table>
+  <div>
+    <table class="table">
       <thead>
         <tr>
           <th
-            class="column" 
+            class="column"
             v-for="column in columns"
+            :class="{ 'active': sort.includes(column) }" 
             @click="sortBy(column)"
           >{{ column }}</th>
         </tr>
@@ -81,7 +82,25 @@ export default {
 </script>
 
 <style scoped>
+.table {
+  width: 100%;
+}
+
 .column {
+  text-transform: uppercase;
   cursor: pointer;
+  text-align: left;
+}
+
+.active {
+  color: #6b809b;
+}
+
+tbody > tr:nth-child(2n+1) {
+    background-color: #f2f2f2;
+}
+
+tbody > tr:hover {
+    background-color: #ddd;
 }
 </style>

@@ -1,6 +1,9 @@
 <template>
   <div class="home">
-    <TableFilter :options="options" :onChangeMethod="filterOnChange"/>
+    <div class="filter">
+      <span><strong>Filter:</strong></span>
+      <TableFilter :options="options" :onChangeMethod="filterOnChange"/>
+    </div>
     <Table :data="companies(filter)" />
     <span>Total: {{ companies(filter).length }} companies of {{ companies('all').length }}</span>
   </div>
@@ -65,3 +68,11 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.filter {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 10px;
+}
+</style>
