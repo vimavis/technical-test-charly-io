@@ -1,16 +1,24 @@
 <template>
   <div class="home">
-    <HelloWorld msg="Hello world"/>
+    <Table 
+      :data="companies"
+    />
   </div>
 </template>
 
 <script>
-import HelloWorld from '@/components/HelloWorld.vue'
+import Table from '@/components/Table.vue'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'HomeView',
   components: {
-    HelloWorld
-  }
+    Table
+  },
+  computed: {
+    ...mapGetters({
+      companies: 'getCompanies'
+    })
+  },
 }
 </script>
