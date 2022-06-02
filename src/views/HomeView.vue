@@ -9,7 +9,7 @@
 <script>
 import Table from '@/components/Table.vue'
 import TableFilter from '@/components/TableFilter.vue'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'HomeView',
@@ -22,7 +22,13 @@ export default {
       filter: 'all',
     }
   },
+  mounted() {
+    this.fetchCompanies('url')
+  },
   methods: {
+    ...mapActions({
+      fetchCompanies: 'fetchCompanies'
+    }),
     capitalizeFirstLetter(string) {
       return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase()
     },

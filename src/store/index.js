@@ -29,6 +29,17 @@ export default new Vuex.Store({
   mutations: {
   },
   actions: {
+    fetchCompanies({ state }, url) {
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          state.companies = data
+        })
+        .catch(error => {
+          console.log(error)
+          console.info('Show default data')
+        })
+    }
   },
   modules: {
   }
